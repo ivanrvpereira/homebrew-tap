@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  style:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Style
+        run: brew style Casks/*.rb
