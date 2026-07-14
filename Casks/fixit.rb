@@ -1,6 +1,6 @@
 cask "fixit" do
-  version "0.1.0"
-  sha256 "a4d8346ffc5a4d9d665930957fb88e20dbe7b6c9287332534204dc3d19841f6e"
+  version "0.2.0"
+  sha256 "3070547023c127a431f8bf25611e1a1b23d6f7a3e36cd2b4107f248ed6cb031b"
 
   url "https://github.com/ivanrvpereira/fixit/releases/download/v#{version}/Fixit-#{version}.zip"
   name "Fixit"
