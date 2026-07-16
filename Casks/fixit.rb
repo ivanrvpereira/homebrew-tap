@@ -3,8 +3,8 @@
 # the rendered fixit.rb to each GitHub release, and pushes it to Casks/fixit.rb
 # in the tap (copy it manually only if TAP_PUSH_TOKEN is unset).
 cask "fixit" do
-  version "0.5.0"
-  sha256 "b23adda042b44711eedeaa1b45fc547093f8bab0ce5d79f9b196f3f9f416f240"
+  version "0.6.0"
+  sha256 "2d415a27d2f40ee26e33bd6a3d25a0eb453d1a5d45ccb430d19fbdd14f6610cf"
 
   url "https://github.com/ivanrvpereira/fixit/releases/download/v#{version}/Fixit-#{version}.zip"
   name "Fixit"
