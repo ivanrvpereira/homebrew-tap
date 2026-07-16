@@ -1,6 +1,9 @@
+# Cask template for the ivanrvpereira/homebrew-tap repository.
+# The release workflow fills in the version and sha256 placeholders and attaches
+# the rendered fixit.rb to each GitHub release; copy it to Casks/fixit.rb in the tap.
 cask "fixit" do
-  version "0.2.0"
-  sha256 "3070547023c127a431f8bf25611e1a1b23d6f7a3e36cd2b4107f248ed6cb031b"
+  version "0.3.0"
+  sha256 "04e74981b3158baa98f7a949fd6d3aa7e00af49e4ca2bf6c100df6aac22ea805"
 
   url "https://github.com/ivanrvpereira/fixit/releases/download/v#{version}/Fixit-#{version}.zip"
   name "Fixit"
@@ -16,18 +19,20 @@ cask "fixit" do
 
   app "Fixit.app"
 
-  # The release binary is ad-hoc signed. Re-sign it with a stable local
-  # self-signed identity so the Accessibility (TCC) grant survives upgrades,
-  # and strip quarantine so Gatekeeper accepts the re-signed app.
-  # Creating the identity pops a keychain password prompt on first install.
+  # The app is signed in CI with a stable release identity, so the
+  # Accessibility (TCC) grant survives upgrades without local re-signing.
+  # It is not notarized, so strip quarantine to keep Gatekeeper from
+  # blocking it. Nothing touches the user's keychain.
   postflight do
-    system_command "/bin/bash",
-                   args: ["#{staged_path}/create-signing-cert.sh"]
     system_command "/usr/bin/xattr",
                    args: ["-dr", "com.apple.quarantine", "#{appdir}/Fixit.app"]
-    system_command "/usr/bin/codesign",
-                   args: ["--force", "--sign", "Fixit Local Code Signing", "#{appdir}/Fixit.app"]
   end
+
+  caveats <<~EOS
+    If macOS asks for Accessibility permission again after upgrading from a
+    locally re-signed version, re-grant it once in System Settings >
+    Privacy & Security > Accessibility.
+  EOS
 
   zap trash: "~/.config/fixit"
 end
